@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGen Project | Вариант 2</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glow-bg"></div>
+
+    <header>
+        <div class="logo nav-link" data-page="home" style="cursor: pointer;">NEXT<span>GEN</span></div>
+        <nav id="main-nav">
+            <a href="#" data-page="home" class="nav-link active">Главная</a>
+            <a href="#" data-page="servers" class="nav-link">Серверы</a>
+            <a href="#" data-page="leaders" class="nav-link">Лидеры</a> 
+            <a href="#" data-page="shop" class="nav-link">Магазин</a>
+            <a href="#" data-page="forum" class="nav-link">Форум</a>
+        </nav>
+        <div id="auth-zone">
+            <button class="btn-main" id="login-trigger">ВХОД STEAM</button>
+        </div>
+    </header>
+
+    <main class="content">
+        <div id="page-home" class="page active">
+            <section class="hero">
+                <h1>ВЫБЕРИ СВОЙ <span>РЕЖИМ</span></h1>
+                <p>Лучшие игровые сервера Казахстана</p>
+            </section>
+            
+            <div class="server-grid top-three"></div>
+            
+            <div class="promo-banners">
+                <a href="https://t.me/Virodhamine" target="_blank" class="banner-box helper" style="text-decoration: none; display: block;">
+                    ПОДАЙ ЗАЯВКУ <span>СТАНЬ ХЕЛПЕРОМ!</span>
+                </a>
+                <div class="banner-box premium" onclick="showVipTutorial()" style="cursor: pointer;">
+                    PREMIUM БЕСПЛАТНО <span>НА 16 ЧАСОВ (ЖМИ!)</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-servers" class="page">
+            <section class="hero">
+                <h1>ВСЕ <span>СЕРВЕРЫ</span></h1>
+            </section>
+            <div class="server-grid all-nine"></div>
+        </div>
+
+        <div id="page-leaders" class="page">
+            <section class="hero">
+                <h1>ТОП <span>ИГРОКОВ</span></h1>
+                <p>Лучшие бойцы наших серверов</p>
+            </section>
+            <div class="leaders-container" id="leaders-list">
+                </div>
+        </div>
+
+        <div id="page-shop" class="page">
+            <section class="hero">
+                <h1>МАГАЗИН <span>ПРИВИЛЕГИЙ</span></h1>
+            </section>
+            <div class="shop-grid" id="shop-items">
+                </div>
+        </div>
+
+        <div id="page-forum" class="page">
+            <section class="hero">
+                <h1>ФОРУМ</h1>
+                <p>Раздел находится в разработке.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">NEXT<span>GEN</span></div>
+            <div class="footer-links">
+                <a href="https://t.me/nextGensss2" target="_blank" class="tg-link">Наш Telegram</a>
+                <span>© 2024-2025 Все права защищены</span>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-box">
+            <h2>STEAM LOGIN</h2>
+            <p style="font-size: 12px; color: #666; margin-bottom: 10px;">(Имитация подключения Steam API)</p>
+            <input type="text" id="user-input" placeholder="Введите ваш никнейм">
+            <button class="btn-main" id="confirm-login">ВОЙТИ</button>
+            <span class="close-text" id="close-modal">Отмена</span>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="vip-tutorial-modal">
+        <div class="modal-box">
+            <h2 style="color: var(--primary);">БЕСПЛАТНАЯ VIP</h2>
+            <p>Чтобы получить Premium на 16 часов, зайдите на любой сервер и пропишите в чате команду:</p>
+            <div style="background: #111; padding: 15px; border: 1px dashed var(--primary); margin: 20px 0; border-radius: 10px;">
+                <code style="color: var(--primary); font-size: 24px; font-weight: bold;">!viptest</code>
+            </div>
+            <p style="font-size: 14px;">После этого вам станут доступны все функции Premium режима!</p>
+            <button class="btn-main" onclick="closeVipTutorial()">ПОНЯЛ</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="deposit-modal">
+        <div class="modal-box">
+            <h2>ПОПОЛНЕНИЕ <span>БАЛАНСА</span></h2>
+            <p>Введите сумму в тенге (₸):</p>
+            <input type="number" id="deposit-amount" placeholder="Например: 1000">
+            <button class="btn-main" id="confirm-deposit">ПОПОЛНИТЬ</button>
+            <span class="close-text" onclick="document.getElementById('deposit-modal').style.display='none'">Отмена</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body><div class="modal-overlay" id="server-details-modal">
+    <div class="modal-box server-detail-box">
+        <div id="sd-image" class="card-thumb"></div>
+        <h2 id="sd-name">Название сервера</h2>
+        <div class="sd-status">
+            <span class="badge" id="sd-online">Онлайн: 0/0</span>
+            <span class="badge" id="sd-ip-display">IP: 127.0.0.1</span>
+        </div>
+        <p id="sd-desc" class="server-full-desc">Полное описание режима появится здесь...</p>
+        
+        <div class="sd-actions">
+            <button class="btn-main" id="sd-copy-btn">КОПИРОВАТЬ IP</button>
+            <a href="#" id="sd-connect-link" class="btn-main" style="background: var(--primary); color: black;">ИГРАТЬ</a>
+        </div>
+        <span class="close-text" onclick="closeServerDetails()">Закрыть</span>
+    </div>
+</div>
+</html>
